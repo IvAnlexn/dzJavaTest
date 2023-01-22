@@ -1,0 +1,9 @@
+# compiled files
+*.exe
+*.class
+*.py[co]
+*.py?
+
+# virtual enviroments files
+/env/
+*/env/
