@@ -17,7 +17,7 @@ def add_data() -> None:
     fullname = fullname_input()
     phone = input("Введите телефон: ")
     with open("book.txt", "a", encoding="utf-8") as f:
-        print(f"{fullname} | {phone}", file=f)
+        print(f"{fullname} | {replace_empty_name(phone)}", file=f)
 
 
 def fullname_input() -> str:
@@ -151,5 +151,5 @@ def edit_contact(contact: str) -> str:
             replace_empty_name(father_name),
         )
     )
-    contact = " | ".join((person, phone))
+    contact = " | ".join((person, replace_empty_name(phone)))
     return contact
