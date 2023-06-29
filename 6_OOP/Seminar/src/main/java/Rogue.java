@@ -5,4 +5,10 @@ public class Rogue extends Warrior{
   public Rogue(String name) {
     super(name);
   }
+  @Override
+  public String getInfo() {
+    return "Rogue";
+  }
+  @Override
+  public void step(){}
 }

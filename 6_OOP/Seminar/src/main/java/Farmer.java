@@ -6,4 +6,10 @@ public class Farmer extends Character {
   public Farmer(String name) {
     super(name);
   }
-}
+    @Override
+    public String getInfo() {
+      return "Farmer";
+    }
+    @Override
+    public void step(){}
+  }

@@ -1,4 +1,4 @@
-public abstract class Character {
+public abstract class Character implements CharacterInterface{
   public String name;
   public int experience;
   public int level;

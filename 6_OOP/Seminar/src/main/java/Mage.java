@@ -5,4 +5,10 @@ public class Mage extends Caster{
   public Mage(String name) {
     super(name);
   }
+  @Override
+  public String getInfo() {
+    return "Mage";
+  }
+  @Override
+  public void step(){}
 }

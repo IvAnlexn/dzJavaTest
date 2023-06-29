@@ -6,4 +6,10 @@ public class Sniper extends Shooter {
   public Sniper(String name) {
     super(name);
   }
+  @Override
+  public String getInfo() {
+    return "Sniper";
+  }
+  @Override
+  public void step(){}
 }

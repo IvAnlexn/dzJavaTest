@@ -5,4 +5,10 @@ public class Spearman extends Warrior{
   public Spearman(String name) {
     super(name);
   }
+  @Override
+  public String getInfo() {
+    return "Spearman";
+  }
+  @Override
+  public void step(){}
 }

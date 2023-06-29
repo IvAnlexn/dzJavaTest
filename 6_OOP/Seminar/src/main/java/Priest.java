@@ -5,4 +5,10 @@ public class Priest extends Caster{
   public Priest(String name) {
     super(name);
   }
+  @Override
+  public String getInfo() {
+    return "Priest";
+  }
+  @Override
+  public void step(){}
 }
