@@ -16,65 +16,67 @@
 // Удалить ненужные методы из абстрактного класса, если такие есть.
 // В main пройти по спискам и вызвать у всех персонажей getInfo.
 
+//1. Создать класс с описанием координат, x и y.
+//2. Добавить в абстрактный класс поле с координатами и пробросить его
+//инициализацию до конструкторов персонажей.
+// Farmer farmer = new Farmer(getName(), x, y);
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Main {
   public static void main(String[] args) {
-    CharacterInterface farmer = new Farmer("farmer");
-    Character spearman = new Spearman("spearman");
-    Character rogue = new Rogue("rogue");
-    Character sniper = new Sniper("sniper");
-    Character crossbowman = new Crossbowman("crossbowman");
-    Character mage = new Mage("mage");
-    Character priest = new Priest("priest");
-farmer.getInfo();
 
     ArrayList<Character> teamOne = new ArrayList<>();
     ArrayList<Character> teamTwo = new ArrayList<>();
-    fillList(teamOne);
-    fillList(teamTwo);
+    fillList(teamOne, 0);
+    fillList(teamTwo, 9);
+    System.out.println(Arrays.toString(teamOne.toArray()));
+    System.out.println("-----");
+    System.out.println(Arrays.toString(teamTwo.toArray()));
+    System.out.println("-----");
     for (Character c:
          teamOne) {
-      System.out.println(c.getInfo());
+      c.step(teamTwo);
     }
+    System.out.println("_____");
     for (Character c:
             teamTwo) {
-      System.out.println(c.getInfo());
+      c.step(teamOne);
     }
   }
 
 
-    public static void fillList (ArrayList < Character > list) {
+    public static void fillList (ArrayList <Character> list, int xPosition) {
       for (int i = 0; i < 10; i++) {
         int cnt = new Random().nextInt(0, 7);
         switch (cnt) {
           case 0: {
-            list.add(new Crossbowman("crossbowman"));
+            list.add(new Crossbowman("crossbowman", xPosition, i));
             break;
           }
           case 1: {
-            list.add(new Farmer("farmer"));
+            list.add(new Farmer("farmer", xPosition, i));
             break;
           }
           case 2: {
-            list.add(new Mage("mage"));
+            list.add(new Mage("mage", xPosition, i));
             break;
           }
           case 3: {
-            list.add(new Priest("priest"));
+            list.add(new Priest("priest", xPosition, i));
             break;
           }
           case 4: {
-            list.add(new Rogue("rogue"));
+            list.add(new Rogue("rogue", xPosition, i));
             break;
           }
           case 5: {
-            list.add(new Sniper("sniper"));
+            list.add(new Sniper("sniper", xPosition, i));
             break;
           }
           default: {
-            list.add(new Spearman("spearman"));
+            list.add(new Spearman("spearman", xPosition, i));
             break;
           }
         }

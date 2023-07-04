@@ -1,15 +1,17 @@
-public class Farmer extends Character {
+import java.util.ArrayList;
 
-  public Farmer(String name, int experience, int level, int hp, int damage, int defense, int speed) {
-    super(name, experience, level, hp, damage, defense, speed);
-  }
-  public Farmer(String name) {
-    super(name);
+public class Farmer extends Warrior {
+
+  public Farmer(String name, int x, int y) {
+    super(name, x, y);
   }
     @Override
     public String getInfo() {
       return "Farmer";
     }
-    @Override
-    public void step(){}
+  @Override
+  public void step(ArrayList<Character> team){
+    Character nearestFoe = findNearest(team);
+    System.out.printf("%s in %d\n", nearestFoe.getInfo(), position.getDistance(nearestFoe.getCoordinates()));
+  }
   }

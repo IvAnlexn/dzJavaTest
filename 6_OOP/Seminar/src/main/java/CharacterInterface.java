@@ -1,4 +1,6 @@
+import java.util.ArrayList;
+
 public interface CharacterInterface {
-  void step();
+  void step(ArrayList<Character> team);
   String getInfo();
 }

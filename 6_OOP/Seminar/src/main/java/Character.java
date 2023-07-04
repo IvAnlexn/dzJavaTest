@@ -1,39 +1,36 @@
-public abstract class Character implements CharacterInterface{
-  public String name;
-  public int experience;
-  public int level;
-  public int hp;
-  public int damage;
-  public int defense;
-  public int speed;
+import java.util.ArrayList;
 
-  public Character(String name, int experience, int level, int hp, int damage, int defense, int speed) {
+public abstract class Character implements CharacterInterface {
+  private String name;
+  private int hp;
+  private int maxHp;
+  private int damage;
+  private int defense;
+  private int speed;
+  protected Coordinates position;
+
+  public Character(String name, int hp, int maxHp, int damage, int defense, int speed, int x, int y) {
     this.name = name;
-    this.experience = experience;
-    this.level = level;
     this.hp = hp;
+    this.maxHp = maxHp;
     this.damage = damage;
     this.defense = defense;
     this.speed = speed;
-  }
-  public Character(String name) {
-    this.name = name;
-    this.experience = 0;
-    this.level = 1;
-    this.hp = 100;
-    this.damage = 10;
-    this.defense = 0;
-    this.speed = 1;
-
+    this.position = new Coordinates(x, y);
   }
 
-  public int move() {
-    return speed;
+  public Coordinates getCoordinates() {
+    return position;
   }
-  public int attack() {
-    return damage;
+
+  protected Character findNearest(ArrayList<Character> team) {
+    Character nearest = team.get(0);
+    for (Character character : team) {
+      if (position.getDistance(character.getCoordinates()) < position.getDistance(nearest.getCoordinates())) {
+        nearest = character;
+      }
+    }
+    return nearest;
   }
-  public int defend(int damage) {
-    return damage - defense;
-  }
+
 }

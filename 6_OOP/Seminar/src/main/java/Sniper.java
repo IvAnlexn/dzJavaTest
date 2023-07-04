@@ -1,15 +1,16 @@
-public class Sniper extends Shooter {
+import java.util.ArrayList;
 
-  public Sniper(String name, int experience, int level, int hp, int damage, int defense, int speed, int range) {
-    super(name, experience, level, hp, damage, defense, speed, range);
-  }
-  public Sniper(String name) {
-    super(name);
+public class Sniper extends Shooter {
+  public Sniper(String name, int x, int y) {
+    super(name, x, y);
   }
   @Override
   public String getInfo() {
     return "Sniper";
   }
   @Override
-  public void step(){}
+  public void step(ArrayList<Character> team){
+    Character nearestFoe = findNearest(team);
+    System.out.printf("%s in %d\n", nearestFoe.getInfo(), position.getDistance(nearestFoe.getCoordinates()));
+  }
 }

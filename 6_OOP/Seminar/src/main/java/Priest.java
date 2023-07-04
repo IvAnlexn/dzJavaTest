@@ -1,14 +1,16 @@
+import java.util.ArrayList;
+
 public class Priest extends Caster{
-  public Priest(String name, int experience, int level, int hp, int damage, int defense, int speed, int mana) {
-    super(name, experience, level, hp, damage, defense, speed, mana);
-  }
-  public Priest(String name) {
-    super(name);
+  public Priest(String name, int x, int y) {
+    super(name, x, y);
   }
   @Override
   public String getInfo() {
     return "Priest";
   }
   @Override
-  public void step(){}
+  public void step(ArrayList<Character> team){
+    Character nearestFoe = findNearest(team);
+    System.out.printf("%s in %d\n", nearestFoe.getInfo(), position.getDistance(nearestFoe.getCoordinates()));
+  }
 }
