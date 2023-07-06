@@ -1,3 +1,5 @@
+package units;
+
 public abstract class Caster extends Character{
   int mana;
   public Caster(String name, int x, int y) {

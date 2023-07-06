@@ -1,12 +1,14 @@
+package units;
+
 import java.util.ArrayList;
 
-public class Priest extends Caster{
-  public Priest(String name, int x, int y) {
+public class Sniper extends Shooter {
+  public Sniper(String name, int x, int y) {
     super(name, x, y);
   }
   @Override
   public String getInfo() {
-    return "Priest";
+    return "Units.Sniper";
   }
   @Override
   public void step(ArrayList<Character> team){

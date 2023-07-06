@@ -1,3 +1,5 @@
+package units;
+
 public abstract class Warrior extends Character{
 int armor;
   public Warrior(String name, int x, int y) {

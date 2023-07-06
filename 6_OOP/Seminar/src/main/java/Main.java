@@ -19,7 +19,10 @@
 //1. Создать класс с описанием координат, x и y.
 //2. Добавить в абстрактный класс поле с координатами и пробросить его
 //инициализацию до конструкторов персонажей.
-// Farmer farmer = new Farmer(getName(), x, y);
+// Units.Farmer farmer = new Units.Farmer(getName(), x, y);
+import units.*;
+import units.Character;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;

@@ -1,12 +1,14 @@
+package units;
+
 import java.util.ArrayList;
 
-public class Mage extends Caster{
-  public Mage(String name, int x, int y) {
+public class Rogue extends Warrior{
+  public Rogue(String name, int x, int y) {
     super(name, x, y);
   }
   @Override
   public String getInfo() {
-    return "Mage";
+    return "Units.Rogue";
   }
   @Override
   public void step(ArrayList<Character> team){

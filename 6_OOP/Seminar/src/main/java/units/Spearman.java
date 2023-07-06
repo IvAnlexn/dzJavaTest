@@ -1,12 +1,14 @@
+package units;
+
 import java.util.ArrayList;
 
-public class Rogue extends Warrior{
-  public Rogue(String name, int x, int y) {
+public class Spearman extends Warrior{
+  public Spearman(String name, int x, int y) {
     super(name, x, y);
   }
   @Override
   public String getInfo() {
-    return "Rogue";
+    return "Units.Spearman";
   }
   @Override
   public void step(ArrayList<Character> team){

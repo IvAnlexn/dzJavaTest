@@ -1,3 +1,5 @@
+package units;
+
 public abstract class Shooter extends Character {
   int range;
   public Shooter(String name, int x, int y) {

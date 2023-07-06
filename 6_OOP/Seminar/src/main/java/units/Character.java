@@ -1,3 +1,6 @@
+package units;
+
+import map.Coordinates;
 import java.util.ArrayList;
 
 public abstract class Character implements CharacterInterface {
