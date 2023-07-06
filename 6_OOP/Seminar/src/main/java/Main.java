@@ -20,11 +20,19 @@
 //2. Добавить в абстрактный класс поле с координатами и пробросить его
 //инициализацию до конструкторов персонажей.
 // Units.Farmer farmer = new Units.Farmer(getName(), x, y);
+
+//1.Если жизни 0 вернуть управление
+//2.Если стрел 0 вернуть управление
+//3.Найти ближайшего противника
+//4.Нанести ему среднее повреждение
+//5.Если среди своих есть крестьянин вернут ь управление
+//6.уменьшить кол-во стрел на одну и вернуть управление
 import units.*;
 import units.Character;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 
 public class Main {
@@ -32,20 +40,25 @@ public class Main {
 
     ArrayList<Character> teamOne = new ArrayList<>();
     ArrayList<Character> teamTwo = new ArrayList<>();
+    ArrayList<Character> team = new ArrayList<>();
     fillList(teamOne, 0);
     fillList(teamTwo, 9);
-    System.out.println(Arrays.toString(teamOne.toArray()));
+    team.addAll(teamOne);
+    team.addAll(teamTwo);
+    team.sort(Comparator.comparingInt((Character c) -> c.initiative));
+    teamOne.forEach(n -> System.out.println(n.getInfo()));
+    teamTwo.forEach(n -> System.out.println(n.getInfo()));
     System.out.println("-----");
-    System.out.println(Arrays.toString(teamTwo.toArray()));
-    System.out.println("-----");
-    for (Character c:
-         teamOne) {
-      c.step(teamTwo);
-    }
-    System.out.println("_____");
-    for (Character c:
-            teamTwo) {
-      c.step(teamOne);
+    for (Character c : team) {
+      if (teamOne.contains(c)) {
+        c.step(teamTwo, teamOne);
+      } else {
+        c.step(teamOne, teamTwo);
+      }
+      System.out.println("team1");
+      teamOne.forEach(n -> System.out.println(n.getInfo()));
+      System.out.println("team2");
+      teamTwo.forEach(n -> System.out.println(n.getInfo()));
     }
   }
 
