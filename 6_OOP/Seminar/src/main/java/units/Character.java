@@ -9,7 +9,7 @@ public abstract class Character implements CharacterInterface {
   protected int maxHp;
   protected int damage;
   protected int defense;
-  public int initiative;
+  protected int initiative;
   protected int speed;
   protected Coordinates position;
 
@@ -41,4 +41,5 @@ public abstract class Character implements CharacterInterface {
   public String getInfo() {
     return String.format("%s: hp=%d", this.name, this.hp);
   }
+  public int getInitiative() {return this.initiative;}
 }

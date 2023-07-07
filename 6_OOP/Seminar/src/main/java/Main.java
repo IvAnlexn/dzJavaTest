@@ -45,7 +45,7 @@ public class Main {
     fillList(teamTwo, 9);
     team.addAll(teamOne);
     team.addAll(teamTwo);
-    team.sort(Comparator.comparingInt((Character c) -> c.initiative));
+    team.sort(Comparator.comparingInt(Character::getInitiative));
     teamOne.forEach(n -> System.out.println(n.getInfo()));
     teamTwo.forEach(n -> System.out.println(n.getInfo()));
     System.out.println("-----");
