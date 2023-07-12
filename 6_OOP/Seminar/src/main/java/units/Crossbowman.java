@@ -1,17 +1,8 @@
 package units;
 
-import java.util.ArrayList;
-
-public class Crossbowman extends Shooter{
-  public Crossbowman(String name, int x, int y) {
-    super(name, x, y);
+public class Crossbowman extends Shooter {
+  public Crossbowman(Names name, int x, int y) {
+    super(name, 6, 6, 4, 1, 3, 1, 7, 7, x, y);
   }
-
-
-  @Override
-  public void step(ArrayList<Character> team, ArrayList<Character> team2){
-    Character nearestFoe = findNearest(team);
-//    System.out.printf("%s in %d\n", nearestFoe.getInfo(), position.getDistance(nearestFoe.getCoordinates()));
-  }
-
 }
+
