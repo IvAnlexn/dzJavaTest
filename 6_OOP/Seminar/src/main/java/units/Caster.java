@@ -7,8 +7,8 @@ public abstract class Caster extends Character implements CharacterInterface {
   int mana;
   int maxMana;
 
-  public Caster(Names name, int hp, int maxHp, int damage, int defense, int initiative, int speed, int mana, int maxMana, int x, int y) {
-    super(name, hp, maxHp, damage, defense, initiative, speed, x, y);
+  public Caster(Names name, int hp, int maxHp, int damage, int defense, int initiative, int mana, int maxMana, int x, int y) {
+    super(name, hp, maxHp, damage, defense, initiative, x, y);
     this.mana = mana;
     this.maxMana = maxMana;
   }
@@ -29,7 +29,7 @@ public abstract class Caster extends Character implements CharacterInterface {
   }
 
   public void step(ArrayList<Character> teamFoe, ArrayList<Character> teamFriend) {
-    if (state.equals(States.DEAD)) return;
+    if (this.isDead()) return;
     Character damagedFriend = findMostDamaged(teamFriend);
     if (mana < maxMana) mana += 1;
     if (damagedFriend != null && mana >= damage) {

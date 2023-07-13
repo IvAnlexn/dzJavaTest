@@ -7,15 +7,15 @@ public abstract class Shooter extends Character implements CharacterInterface{
   protected int arrows;
   protected int maxArrows;
 
-  public Shooter(Names name, int hp, int maxHp, int damage, int defense, int initiative, int speed,int arrows, int maxArrows, int x, int y) {
-    super(name, hp, maxHp, damage, defense, initiative, speed, x, y);
+  public Shooter(Names name, int hp, int maxHp, int damage, int defense, int initiative, int arrows, int maxArrows, int x, int y) {
+    super(name, hp, maxHp, damage, defense, initiative, x, y);
     this.arrows = arrows;
     this.maxArrows = maxArrows;
   }
 
   @Override
   public void step(ArrayList<Character> teamFoe, ArrayList<Character> teamFriend) {
-    if (state.equals(States.DEAD) || arrows <= 0) return;
+    if (this.isDead() || arrows <= 0) return;
     Character nearestFoe = findNearest(teamFoe);
     if (nearestFoe != null) {
       nearestFoe.getDamage(damage);

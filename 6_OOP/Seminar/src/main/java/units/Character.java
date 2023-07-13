@@ -11,22 +11,19 @@ public abstract class Character implements CharacterInterface {
   protected int damage;
   protected int defense;
   protected int initiative;
-  protected int speed;
   protected Coordinates position;
   protected States state;
 
-  public Character(Names name, int hp, int maxHp, int damage, int defense, int initiative, int speed, int x, int y) {
+  public Character(Names name, int hp, int maxHp, int damage, int defense, int initiative, int x, int y) {
     this.name = name;
     this.hp = hp;
     this.maxHp = maxHp;
     this.damage = damage;
     this.defense = defense;
     this.initiative = initiative;
-    this.speed = speed;
     this.position = new Coordinates(x, y);
     this.state = States.READY;
   }
-
 
   public Coordinates getCoordinates() {
     return position;
@@ -65,7 +62,7 @@ public abstract class Character implements CharacterInterface {
   }
 
   public String getInfo() {
-    return String.format("nm: %s, cl: %s, st: %s, hp: %d/%d, dmg: %d, def: %d, init: %d, sp: %d", this.name.name(), this.toString(), this.state.name(), this.hp, this.maxHp, this.damage, this.defense, this.initiative, this.speed);
+    return String.format("nm: %s, cl: %s, st: %s, hp: %d/%d, dmg: %d, def: %d, init: %d,", this.name.name(), this.toString(), this.state.name(), this.hp, this.maxHp, this.damage, this.defense, this.initiative);
   }
 
   public int getInitiative() {
