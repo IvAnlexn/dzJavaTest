@@ -4,10 +4,7 @@ import units.Character;
 import units.*;
 import views.View;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
   public static ArrayList<Character> team1 = new ArrayList<>();
@@ -15,13 +12,19 @@ public class Main {
   public static ArrayList<Character> allTeam = new ArrayList<>();
 
   public static void main(String[] args) {
-    fillList(team1, 1);
-    fillList(team2, 10);
+    fillGreenList(team1, 1);
+    fillBlueList(team2, 10);
     allTeam.addAll(team1);
     allTeam.addAll(team2);
-    allTeam.sort(Comparator.comparingInt(Character::getInitiative));
+    allTeam.sort(new Comparator<Character>() {
+      @Override
+      public int compare(Character character, Character t1) {
+        if (character.getInitiative() > t1.getInitiative()) return -1;
+        if (character.getInitiative() < t1.getInitiative()) return 1;
+        return 0;
+      }});
     Scanner scanner = new Scanner(System.in);
-    for (int i = 0; i < 10; i++) {
+    while (isAtLeastOneAlive(team1) && isAtLeastOneAlive(team2)){
       View.view();
       for (Character c : allTeam) {
         if (team1.contains(c)) {
@@ -30,43 +33,63 @@ public class Main {
           c.step(team1, team2);
         }
       }
-     scanner.nextLine();
+      scanner.nextLine();
     }
   }
 
+  public static boolean isAtLeastOneAlive(ArrayList<Character> team) {
+    for (Character c : team) {
+      if (!c.isDead()) return true;
+    }
+    return false;
+  }
 
-  public static void fillList(ArrayList<Character> list, int xPosition) {
+  public static void fillGreenList(ArrayList<Character> list, int xPosition) {
     Names[] names = Names.values();
     for (int i = 1; i <= 10; i++) {
-      int cnt = new Random().nextInt(7);
+      int cnt = new Random().nextInt(4);
       Names name = names[new Random().nextInt(names.length)];
       switch (cnt) {
         case 0: {
-          list.add(new Crossbowman(name, xPosition, i));
-          break;
-        }
-        case 1: {
           list.add(new Farmer(name, xPosition, i));
           break;
         }
-        case 2: {
+        case 1: {
           list.add(new Mage(name, xPosition, i));
           break;
         }
-        case 3: {
-          list.add(new Priest(name, xPosition, i));
-          break;
-        }
-        case 4: {
-          list.add(new Rogue(name, xPosition, i));
-          break;
-        }
-        case 5: {
+        case 2: {
           list.add(new Archer(name, xPosition, i));
           break;
         }
         default: {
           list.add(new Spearman(name, xPosition, i));
+          break;
+        }
+      }
+    }
+  }
+
+  public static void fillBlueList(ArrayList<Character> list, int xPosition) {
+    Names[] names = Names.values();
+    for (int i = 1; i <= 10; i++) {
+      int cnt = new Random().nextInt(4);
+      Names name = names[new Random().nextInt(names.length)];
+      switch (cnt) {
+        case 0: {
+          list.add(new Farmer(name, xPosition, i));
+          break;
+        }
+        case 1: {
+          list.add(new Priest(name, xPosition, i));
+          break;
+        }
+        case 2: {
+          list.add(new Crossbowman(name, xPosition, i));
+          break;
+        }
+        default: {
+          list.add(new Rogue(name, xPosition, i));
           break;
         }
       }

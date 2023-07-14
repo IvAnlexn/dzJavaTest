@@ -9,4 +9,5 @@ enum States {
   ATTACK,
   SUPPLY,
   NOMANA,
+  CAST
 }

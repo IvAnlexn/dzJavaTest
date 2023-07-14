@@ -30,7 +30,7 @@ public class View {
         private static String getChar(int x, int y){
             String out = "| ";
             for (Character human: Main.allTeam) {
-                if (human.getCoordinates().getPosition()[0] == x && human.getCoordinates().getPosition()[1] == y){
+                if (human.getCoordinates().toArray()[0] == x && human.getCoordinates().toArray()[1] == y){
                     if (human.isDead()){
                         out = "|" + (AnsiColors.ANSI_RED + human.toString().charAt(0) + AnsiColors.ANSI_RESET);
                         break;

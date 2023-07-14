@@ -15,17 +15,24 @@ public abstract class Shooter extends Character implements CharacterInterface{
 
   @Override
   public void step(ArrayList<Character> teamFoe, ArrayList<Character> teamFriend) {
-    if (this.isDead() || arrows <= 0) return;
+    if (this.isDead()) return;
+    this.state = States.READY;
+    if (arrows <= 0) {
+      this.state = States.NOAMMO;
+      return;
+    }
     Character nearestFoe = findNearest(teamFoe);
     if (nearestFoe != null) {
       nearestFoe.getDamage(damage);
-      for (Character c : teamFriend) {
-        if (c.getClass() == Farmer.class && c.state.equals(States.READY)) {
-          if (this.arrows< this.maxArrows) this.arrows += 1;
-          return;
-        }
-      }
       this.arrows -= 1;
+      state = States.SHOOT;
+    }
+    for (Character c : teamFriend) {
+      if (this.arrows < this.maxArrows && c.getClass() == Farmer.class && c.state.equals(States.READY)) {
+        this.arrows += 1;
+        c.state = States.SUPPLY;
+        break;
+      }
     }
   }
   @Override

@@ -14,7 +14,7 @@ public abstract class Caster extends Character implements CharacterInterface {
   }
 
   private Character findMostDamaged(ArrayList<Character> team) {
-    Character mostDamaged = team.get(0);
+    Character mostDamaged = new Farmer(Names.Arya, 30, 30);
     for (Character character : team) {
       if (!character.state.equals(States.DEAD)
               && character.hp < character.maxHp
@@ -30,11 +30,16 @@ public abstract class Caster extends Character implements CharacterInterface {
 
   public void step(ArrayList<Character> teamFoe, ArrayList<Character> teamFriend) {
     if (this.isDead()) return;
-    Character damagedFriend = findMostDamaged(teamFriend);
     if (mana < maxMana) mana += 1;
-    if (damagedFriend != null && mana >= damage) {
+    if (mana < damage) {
+      state = States.NOMANA;
+      return;
+    }
+    Character damagedFriend = findMostDamaged(teamFriend);
+    if (damagedFriend != null) {
       damagedFriend.getHealing(damage);
       mana -= damage;
+      state = States.CAST;
     }
   }
 

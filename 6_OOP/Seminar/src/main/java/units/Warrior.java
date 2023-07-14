@@ -6,6 +6,7 @@
 package units;
 
 import map.Coordinates;
+import map.Directions;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,8 @@ public abstract class Warrior extends Character implements CharacterInterface {
   public void step(ArrayList<Character> teamFoe, ArrayList<Character> teamFriend) {
     if (this.isDead()) return;
     Character nearestFoe = findNearest(teamFoe);
-    this.move(nearestFoe, teamFriend);
+    if (this.attack(nearestFoe)) return;
+    this.move(nearestFoe, teamFriend, teamFoe);
   }
 
   @Override
@@ -26,43 +28,51 @@ public abstract class Warrior extends Character implements CharacterInterface {
     return super.getInfo();
   }
 
-  public void move(Character enemy, ArrayList<Character> team) {
-    if (enemy.getCoordinates().getDistance(enemy.getCoordinates()) == 1) {
+  public boolean attack(Character enemy) {
+    if (this.getCoordinates().getDistance(enemy.getCoordinates()) == 1) {
       enemy.getDamage(damage);
-      return;
+      state = States.ATTACK;
+      return true;
     }
-    String direction = this.getCoordinates().getDirection(enemy.getCoordinates());
+    return false;
+  }
+
+  public void move(Character enemy, ArrayList<Character> team1, ArrayList<Character> team2) {
+    Directions direction = this.getCoordinates().getDirection(enemy.getCoordinates());
     switch (direction) {
-      case "right":
-        if (this.isFilled(team, new Coordinates(this.getCoordinates().getPosition()[0] + 1, this.getCoordinates().getPosition()[1])))
-          return;
-        this.position.x++;
+      case SOUTH:
+        if (this.checkStepAheadIsAvailable(team1, new Coordinates(this.getCoordinates().toArray()[0] + 1, this.getCoordinates().toArray()[1]))
+                && this.checkStepAheadIsAvailable(team2, new Coordinates(this.getCoordinates().toArray()[0] + 1, this.getCoordinates().toArray()[1])))
+          this.position.setCoordinates(this.getCoordinates().toArray()[0] + 1, this.getCoordinates().toArray()[1]);
+        state = States.MOVE;
         break;
-      case "left":
-        if (this.isFilled(team, new Coordinates(this.getCoordinates().getPosition()[0] - 1, this.getCoordinates().getPosition()[1])))
-          return;
-        this.position.x--;
+      case NORTH:
+        if (this.checkStepAheadIsAvailable(team1, new Coordinates(this.getCoordinates().toArray()[0] - 1, this.getCoordinates().toArray()[1]))
+                && this.checkStepAheadIsAvailable(team2, new Coordinates(this.getCoordinates().toArray()[0] - 1, this.getCoordinates().toArray()[1])))
+          this.position.setCoordinates(this.getCoordinates().toArray()[0] - 1, this.getCoordinates().toArray()[1]);
+        state = States.MOVE;
         break;
-      case "forward":
-        if (this.isFilled(team, new Coordinates(this.getCoordinates().getPosition()[0], this.getCoordinates().getPosition()[1] + 1)))
-          return;
-        this.position.y--;
+      case WEST:
+        if (this.checkStepAheadIsAvailable(team1, new Coordinates(this.getCoordinates().toArray()[0], this.getCoordinates().toArray()[1] - 1))
+                && this.checkStepAheadIsAvailable(team2, new Coordinates(this.getCoordinates().toArray()[0], this.getCoordinates().toArray()[1] - 1)))
+          this.position.setCoordinates(this.getCoordinates().toArray()[0], this.getCoordinates().toArray()[1] - 1);
+        state = States.MOVE;
         break;
-      case "back":
-        if (this.isFilled(team, new Coordinates(this.getCoordinates().getPosition()[0], this.getCoordinates().getPosition()[1] - 1)))
-          return;
-        this.position.y++;
+      case EAST:
+        if (this.checkStepAheadIsAvailable(team1, new Coordinates(this.getCoordinates().toArray()[0], this.getCoordinates().toArray()[1] + 1))
+          && this.checkStepAheadIsAvailable(team2, new Coordinates(this.getCoordinates().toArray()[0], this.getCoordinates().toArray()[1] + 1)))
+          this.position.setCoordinates(this.getCoordinates().toArray()[0], this.getCoordinates().toArray()[1] + 1);
+        state = States.MOVE;
         break;
-
-
     }
   }
 
-  private boolean isFilled(ArrayList<Character> team, Coordinates coordinates) {
+
+  private boolean checkStepAheadIsAvailable(ArrayList<Character> team, Coordinates coordinates) {
     for (Character character : team) {
-      if (coordinates.isEqual(character.getCoordinates())) return true;
+      if (!character.isDead() && coordinates.isEqual(character.getCoordinates())) return false;
     }
-    return false;
+    return true;
   }
 }
 

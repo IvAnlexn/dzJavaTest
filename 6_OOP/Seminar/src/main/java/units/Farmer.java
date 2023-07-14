@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Farmer extends Character{
 
   public Farmer(Names name, int x, int y) {
-    super(name, 2, 2, 1, 1, 1, x, y);
+    super(name, 4, 4, 1, 1, 1, x, y);
   }
 
   @Override
