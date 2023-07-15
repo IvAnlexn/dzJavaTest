@@ -45,52 +45,52 @@ public class Main {
     return false;
   }
 
-  public static void fillGreenList(ArrayList<Character> list, int xPosition) {
+  public static void fillGreenList(ArrayList<Character> list, int startRow) {
     Names[] names = Names.values();
     for (int i = 1; i <= 10; i++) {
       int cnt = new Random().nextInt(4);
       Names name = names[new Random().nextInt(names.length)];
       switch (cnt) {
         case 0: {
-          list.add(new Farmer(name, xPosition, i));
+          list.add(new Farmer(name, startRow, i));
           break;
         }
         case 1: {
-          list.add(new Mage(name, xPosition, i));
+          list.add(new Mage(name, startRow, i));
           break;
         }
         case 2: {
-          list.add(new Archer(name, xPosition, i));
+          list.add(new Archer(name, startRow, i));
           break;
         }
         default: {
-          list.add(new Spearman(name, xPosition, i));
+          list.add(new Spearman(name, startRow, i));
           break;
         }
       }
     }
   }
 
-  public static void fillBlueList(ArrayList<Character> list, int xPosition) {
+  public static void fillBlueList(ArrayList<Character> list, int startRow) {
     Names[] names = Names.values();
     for (int i = 1; i <= 10; i++) {
       int cnt = new Random().nextInt(4);
       Names name = names[new Random().nextInt(names.length)];
       switch (cnt) {
         case 0: {
-          list.add(new Farmer(name, xPosition, i));
+          list.add(new Farmer(name, startRow, i));
           break;
         }
         case 1: {
-          list.add(new Priest(name, xPosition, i));
+          list.add(new Priest(name, startRow, i));
           break;
         }
         case 2: {
-          list.add(new Crossbowman(name, xPosition, i));
+          list.add(new Crossbowman(name, startRow, i));
           break;
         }
         default: {
-          list.add(new Rogue(name, xPosition, i));
+          list.add(new Rogue(name, startRow, i));
           break;
         }
       }

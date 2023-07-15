@@ -1,30 +1,30 @@
 package map;
 
 public class Coordinates {
-  private int x;
-  private int y;
+  private int row;
+  private int col;
 
-  public Coordinates(int x, int y) {
-    this.x = x;
-    this.y = y;
+  public Coordinates(int row, int col) {
+    this.row = row;
+    this.col = col;
   }
 
   public int[] toArray() {
-    return new int[]{x, y};
+    return new int[]{row, col};
   }
 
-  public void setCoordinates(int x, int y) {
-    this.x = x;
-    this.y = y;
+  public void setCoordinates(int row, int col) {
+    this.row = row;
+    this.col = col;
   }
 
   @Override
   public String toString() {
-    return String.format("x: %d, y: %d", x, y);
+    return String.format("row: %d, col: %d", row, col);
   }
 
   public int getDistance(Coordinates targetPosition) {
-    return (int) Math.sqrt(Math.pow(x - targetPosition.toArray()[0], 2) + Math.pow(y - targetPosition.toArray()[1], 2));
+    return (int) Math.sqrt(Math.pow(row - targetPosition.toArray()[0], 2) + Math.pow(col - targetPosition.toArray()[1], 2));
   }
 
   public Directions getDirection(Coordinates otherCoordinates) {
@@ -46,6 +46,6 @@ public class Coordinates {
   }
 
   public boolean isEqual(Coordinates coordinates) {
-    return this.x == coordinates.x && this.y == coordinates.y;
+    return this.row == coordinates.row && this.col == coordinates.col;
   }
 }

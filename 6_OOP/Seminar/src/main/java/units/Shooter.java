@@ -7,8 +7,8 @@ public abstract class Shooter extends Character implements CharacterInterface{
   protected int arrows;
   protected int maxArrows;
 
-  public Shooter(Names name, int hp, int maxHp, int damage, int defense, int initiative, int arrows, int maxArrows, int x, int y) {
-    super(name, hp, maxHp, damage, defense, initiative, x, y);
+  public Shooter(Names name, int hp, int maxHp, int damage, int defense, int initiative, int arrows, int maxArrows, int row, int col) {
+    super(name, hp, maxHp, damage, defense, initiative, row, col);
     this.arrows = arrows;
     this.maxArrows = maxArrows;
   }

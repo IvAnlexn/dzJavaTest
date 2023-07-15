@@ -14,14 +14,14 @@ public abstract class Character implements CharacterInterface {
   protected Coordinates position;
   protected States state;
 
-  public Character(Names name, int hp, int maxHp, int damage, int defense, int initiative, int x, int y) {
+  public Character(Names name, int hp, int maxHp, int damage, int defense, int initiative, int row, int col) {
     this.name = name;
     this.hp = hp;
     this.maxHp = maxHp;
     this.damage = damage;
     this.defense = defense;
     this.initiative = initiative;
-    this.position = new Coordinates(x, y);
+    this.position = new Coordinates(row, col);
     this.state = States.READY;
   }
 

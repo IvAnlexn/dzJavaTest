@@ -27,10 +27,10 @@ public class View {
                     .replace('i', '\u2518')
                     .replace('-', '\u2500');
         }
-        private static String getChar(int x, int y){
+        private static String getChar(int row, int col){
             String out = "| ";
             for (Character human: Main.allTeam) {
-                if (human.getCoordinates().toArray()[0] == x && human.getCoordinates().toArray()[1] == y){
+                if (human.getCoordinates().toArray()[0] == row && human.getCoordinates().toArray()[1] == col){
                     if (human.isDead()){
                         out = "|" + (AnsiColors.ANSI_RED + human.toString().charAt(0) + AnsiColors.ANSI_RESET);
                         break;

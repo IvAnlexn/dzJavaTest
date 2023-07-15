@@ -7,8 +7,8 @@ public abstract class Caster extends Character implements CharacterInterface {
   int mana;
   int maxMana;
 
-  public Caster(Names name, int hp, int maxHp, int damage, int defense, int initiative, int mana, int maxMana, int x, int y) {
-    super(name, hp, maxHp, damage, defense, initiative, x, y);
+  public Caster(Names name, int hp, int maxHp, int damage, int defense, int initiative, int mana, int maxMana, int row, int col) {
+    super(name, hp, maxHp, damage, defense, initiative, row, col);
     this.mana = mana;
     this.maxMana = maxMana;
   }
