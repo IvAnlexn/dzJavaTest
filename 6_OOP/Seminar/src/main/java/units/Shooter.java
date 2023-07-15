@@ -21,13 +21,13 @@ public abstract class Shooter extends Character implements CharacterInterface{
       this.state = States.NOAMMO;
       return;
     }
-    Character nearestFoe = findNearest(teamFoe);
+    Character nearestFoe = findNearest(getNotDeadTeamMembers(teamFoe));
     if (nearestFoe != null) {
       nearestFoe.getDamage(damage);
       this.arrows -= 1;
       state = States.SHOOT;
     }
-    for (Character c : teamFriend) {
+    for (Character c : getNotDeadTeamMembers(teamFriend)) {
       if (this.arrows < this.maxArrows && c.getClass() == Farmer.class && c.state.equals(States.READY)) {
         this.arrows += 1;
         c.state = States.SUPPLY;

@@ -35,6 +35,7 @@ public class Main {
       }
       scanner.nextLine();
     }
+    View.view();
   }
 
   public static boolean isAtLeastOneAlive(ArrayList<Character> team) {

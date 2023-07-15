@@ -40,6 +40,13 @@ public abstract class Character implements CharacterInterface {
     }
     return nearest;
   }
+  ArrayList<Character> getNotDeadTeamMembers(ArrayList<Character> team) {
+    ArrayList<Character> notDeadTeamMembers = new ArrayList<>();
+    for (Character c: team) {
+      if (!c.isDead()) notDeadTeamMembers.add(c);
+    }
+    return notDeadTeamMembers;
+  }
 
   protected void getDamage(int damagePoints) {
     hp -= damagePoints;

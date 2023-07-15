@@ -14,7 +14,7 @@ public abstract class Caster extends Character implements CharacterInterface {
   }
 
   private Character findMostDamaged(ArrayList<Character> team) {
-    Character mostDamaged = new Farmer(Names.Arya, 30, 30);
+    Character mostDamaged = team.get(0);
     for (Character character : team) {
       if (!character.state.equals(States.DEAD)
               && character.hp < character.maxHp
@@ -35,7 +35,7 @@ public abstract class Caster extends Character implements CharacterInterface {
       state = States.NOMANA;
       return;
     }
-    Character damagedFriend = findMostDamaged(teamFriend);
+    Character damagedFriend = findMostDamaged(getNotDeadTeamMembers(teamFriend));
     if (damagedFriend != null) {
       damagedFriend.getHealing(damage);
       mana -= damage;
