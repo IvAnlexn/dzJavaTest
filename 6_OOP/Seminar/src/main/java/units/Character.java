@@ -30,6 +30,7 @@ public abstract class Character implements CharacterInterface {
   }
 
   protected Character findNearest(ArrayList<Character> team) {
+    if (team.size() == 0) return null;
     Character nearest = team.get(0);
     for (Character character : team) {
       if (!character.state.equals(States.DEAD)

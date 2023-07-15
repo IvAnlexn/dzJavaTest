@@ -14,6 +14,7 @@ public abstract class Caster extends Character implements CharacterInterface {
   }
 
   private Character findMostDamaged(ArrayList<Character> team) {
+    if (team.size() == 0) return null;
     Character mostDamaged = team.get(0);
     for (Character character : team) {
       if (!character.state.equals(States.DEAD)

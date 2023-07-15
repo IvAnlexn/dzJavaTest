@@ -28,6 +28,7 @@ public abstract class Shooter extends Character implements CharacterInterface{
       state = States.SHOOT;
     }
     for (Character c : getNotDeadTeamMembers(teamFriend)) {
+      if (c == null) return;
       if (this.arrows < this.maxArrows && c.getClass() == Farmer.class && c.state.equals(States.READY)) {
         this.arrows += 1;
         c.state = States.SUPPLY;

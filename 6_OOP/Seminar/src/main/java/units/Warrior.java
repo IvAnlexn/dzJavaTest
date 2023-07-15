@@ -19,6 +19,7 @@ public abstract class Warrior extends Character implements CharacterInterface {
   public void step(ArrayList<Character> teamFoe, ArrayList<Character> teamFriend) {
     if (this.isDead()) return;
     Character nearestFoe = findNearest(getNotDeadTeamMembers(teamFoe));
+    if (nearestFoe == null) return;
     if (this.attack(nearestFoe)) return;
     this.move(nearestFoe, getNotDeadTeamMembers(teamFriend), getNotDeadTeamMembers(teamFoe));
   }
