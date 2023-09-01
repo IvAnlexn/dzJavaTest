@@ -32,7 +32,8 @@ LIMIT 1;
 -- 4. Подсчитать общее количество лайков, которые получили пользователи младше 18 лет.
 SELECT COUNT(l.id) AS total_likes
 FROM likes AS l
-JOIN profiles AS p ON l.user_id = p.user_id
+JOIN media AS m ON l.media_id = m.id
+JOIN profiles AS p ON m.user_id = p.user_id
 WHERE (p.birthday + INTERVAL 18 YEAR) > NOW();
 
 -- 5. Определить кто больше поставил лайков (всего): мужчины или женщины.
