@@ -15,7 +15,7 @@ public class Task4 {
       String userInput = getUserInput();
       System.out.println(userInput);
     } catch (EmptyStringException e) {
-      System.out.println("Пустые строки вводить нельзя");
+      System.out.println("Пустые строки вводить нельзя " + e.getMessage());
       System.out.println("Попробуйте снова");
       mainHelper();
     }
