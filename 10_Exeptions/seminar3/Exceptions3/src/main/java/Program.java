@@ -12,6 +12,7 @@ public class Program {
       person = Person.fromString(inputPersonData);
     } catch (PersonException e) {
       System.out.println(e.getMessage() + ": " + e.getContext());
+      e.printStackTrace();
       return;
     }
     try (FileWriter fileWriter = new FileWriter(person.getLastname(), true)) {
@@ -20,6 +21,7 @@ public class Program {
       fileWriter.flush();
     } catch (IOException e) {
       System.out.println("Ошибка при записи данных в файл: " + e.getMessage());
+      e.printStackTrace();
     }
   }
 
