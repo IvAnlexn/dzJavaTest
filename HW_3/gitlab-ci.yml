@@ -1,0 +1,147 @@
+image: busybox:latest
+
+stages:
+  - build
+  - test
+  - deploy
+  - stop
+  - stop previous jobs
+
+variables:
+    BUILD_IMAGE: $CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}
+    CI_DEBUG_TRACE: "true"
+    My_Login: $CI_COMMIT_REF_NAME
+
+
+cache:
+    key:
+        files:
+            - composer.lock
+    paths:
+        - vendor/
+
+build1:
+    stage: build
+    script:
+        - echo "Do your build here"
+        - mkdir -p vendor/
+        - echo "build" > vendor/hello.txt
+
+docker build:
+    image: docker:latest
+    stage: build
+    services:
+        - docker:dind
+    script:
+        - docker login -u $GITLAB_CI_USER -p $GITLAB_CI_PASSWORD $CI_REGISTRY
+        - echo $GITLAB_CI_USER $GITLAB_CI_PASSWORD $CI_REGISTRY $CI_REGISTRY_IMAGE:$BUILD_IMAGE
+        - docker build -t $BUILD_IMAGE .
+        - docker push $BUILD_IMAGE
+
+testdocker:
+    image: docker:latest
+    stage: test
+    services:
+        - docker:dind
+    script:
+        - docker login -u $GITLAB_CI_USER -p $GITLAB_CI_PASSWORD $CI_REGISTRY
+        - docker pull $BUILD_IMAGE
+        - docker run $BUILD_IMAGE
+        - docker ps -a
+
+deploy1:
+    stage: deploy
+    script:
+        - echo "Do your deploy here"
+    environment: production
+
+deploy to preprod:
+    stage: deploy
+    variables:
+        TARGET_ENV: preprod
+    script:
+        - echo "Do you deploy here to ${TARGET_ENV}"
+        - echo ${DB_SERVER}
+        - echo $MyPassword
+    only:
+        - main
+    environment:
+        name: preprod
+        on_stop: stop to preprod
+        auto_stop_in: 1 day
+
+deploy to production:
+    stage: deploy
+    variables:
+        TARGET_ENV: production
+    script:
+        - echo "Do you deploy here to ${TARGET_ENV}"
+        - echo ${DB_SERVER}
+        - echo $MyPassword
+    only:
+        - main
+    when: manual
+    environment:
+        name: production
+
+stop to preprod:
+    stage: stop
+    variables:
+        TARGET_ENV: preprod
+    script:
+        - echo "STOP ${TARGET_ENV}"
+    only:
+        - main
+    when: manual
+    environment:
+        name: preprod
+        action: stop
+
+stop to production:
+    stage: stop
+    variables:
+        TARGET_ENV: production
+    script:
+        - echo "STOP ${TARGET_ENV}"
+    only:
+        - main
+    when: manual
+    environment:
+     name: production
+     action: stop
+
+
+
+pages:
+    stage: deploy
+    script:
+        - mkdir -p public
+        - cp vendor/hello.txt public/index.html
+        - echo 404 >> public/404.html
+    artifacts:
+        exclude:
+            - public/404.html
+        paths:
+            - public
+    only:
+        - main
+
+
+
+# ------- Cancel -------
+cancel:
+  stage: stop previous jobs
+  image: everpeace/curl-jq
+  script:
+    - |
+      if [ "$CI_COMMIT_REF_NAME" == "main" ]
+        then
+          (
+            echo "Cancel old pipelines from the same branch except last"
+            OLD_PIPELINES=$( curl -s -H "PRIVATE-TOKEN: $RUNNER_TOKEN" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines?ref=${CI_COMMIT_REF_NAME}&status=running" \
+                  | jq '.[] | .id' | tail -n +2 )
+                  for pipeline in ${OLD_PIPELINES}; \
+                      do echo "Killing ${pipeline}" && \
+                        curl -s --request POST -H "PRIVATE-TOKEN: ${RUNNER_TOKEN}" "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/pipelines/${pipeline}/cancel"; done
+          ) || echo "Canceling old pipelines (${OLD_PIPELINES}) failed"
+      fi
